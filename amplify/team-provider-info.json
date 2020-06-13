@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-reactopenapi-dev-94750-authRole",
+            "UnauthRoleArn": "arn:aws:iam::921809084865:role/amplify-reactopenapi-dev-94750-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::921809084865:role/amplify-reactopenapi-dev-94750-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-reactopenapi-dev-94750-deployment",
+            "UnauthRoleName": "amplify-reactopenapi-dev-94750-unauthRole",
+            "StackName": "amplify-reactopenapi-dev-94750",
+            "StackId": "arn:aws:cloudformation:eu-central-1:921809084865:stack/amplify-reactopenapi-dev-94750/31927b50-ad4a-11ea-89fc-02165db3bfb6",
+            "AmplifyAppId": "dgk3j80aavvow"
+        }
+    }
+}
