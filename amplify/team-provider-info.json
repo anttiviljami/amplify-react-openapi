@@ -10,6 +10,17 @@
             "StackName": "amplify-reactopenapi-dev-94750",
             "StackId": "arn:aws:cloudformation:eu-central-1:921809084865:stack/amplify-reactopenapi-dev-94750/31927b50-ad4a-11ea-89fc-02165db3bfb6",
             "AmplifyAppId": "dgk3j80aavvow"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "dgk3j80aavvow",
+                    "type": "cicd"
+                }
+            },
+            "auth": {
+                "cognito435e16db": {}
+            }
         }
     }
 }

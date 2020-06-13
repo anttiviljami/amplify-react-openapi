@@ -1,0 +1,5 @@
+{
+    "tableName": "vanillacrudapiItems",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}
