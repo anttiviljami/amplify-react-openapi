@@ -9,14 +9,6 @@
 		},
 		"env": {
 			"Type": "String"
-		},
-		"storagevanillacrudapiItemsName": {
-			"Type": "String",
-			"Default": "storagevanillacrudapiItemsName"
-		},
-		"storagevanillacrudapiItemsArn": {
-			"Type": "String",
-			"Default": "storagevanillacrudapiItemsArn"
 		}
 	},
 	"Conditions": {
@@ -41,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"vanillacrudapi",
+						"openapibackend",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"vanillacrudapi",
+									"openapibackend",
 									"-",
 									{
 										"Ref": "env"
@@ -76,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-reactopenapi-dev-94750-deployment",
-					"S3Key": "amplify-builds/vanillacrudapi-6242486a774b70635a4a-build.zip"
+					"S3Key": "amplify-builds/openapibackend-61343059432b4f676461-build.zip"
 				}
 			}
 		},
@@ -86,12 +78,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"reactopenapiLambdaRole5b6a92a4",
+						"reactopenapiLambdaRolec1651987",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"reactopenapiLambdaRole5b6a92a4",
+									"reactopenapiLambdaRolec1651987",
 									"-",
 									{
 										"Ref": "env"
@@ -157,34 +149,6 @@
 									}
 								]
 							}
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:DescribeTable",
-								"dynamodb:GetItem",
-								"dynamodb:Query",
-								"dynamodb:Scan",
-								"dynamodb:PutItem",
-								"dynamodb:UpdateItem",
-								"dynamodb:DeleteItem"
-							],
-							"Resource": [
-								{
-									"Ref": "storagevanillacrudapiItemsArn"
-								},
-								{
-									"Fn::Join": [
-										"/",
-										[
-											{
-												"Ref": "storagevanillacrudapiItemsArn"
-											},
-											"index/*"
-										]
-									]
-								}
-							]
 						}
 					]
 				}

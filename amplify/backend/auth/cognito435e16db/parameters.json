@@ -1,6 +1,6 @@
 {
     "identityPoolName": "reactopenapi_identitypool_19db38b8",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "reacto19db38b8",
     "userPoolName": "reactopenapi_userpool_19db38b8",
     "autoVerifiedAttributes": [

@@ -1,41 +1,45 @@
 {
     "paths": [
         {
-            "name": "/items",
-            "lambdaFunction": "vanillacrudapi",
+            "name": "/api",
+            "lambdaFunction": "openapibackend",
             "privacy": {
-                "private": true,
+                "protected": true,
                 "auth": [
                     "/POST",
                     "/GET",
                     "/PUT",
                     "/PATCH",
                     "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
                 ]
             }
         }
     ],
-    "resourceName": "vanillacrudapi",
-    "apiName": "vanillacrudapi",
+    "resourceName": "openapi",
+    "apiName": "openapi",
     "functionArns": [
         {
-            "lambdaFunction": "vanillacrudapi"
+            "lambdaFunction": "openapibackend"
         }
     ],
     "privacy": {
         "auth": 1,
-        "unauth": 0,
+        "unauth": 1,
         "authRoleName": "amplify-reactopenapi-dev-94750-authRole",
         "unAuthRoleName": "amplify-reactopenapi-dev-94750-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "vanillacrudapi",
+            "resourceName": "openapibackend",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "2b1a6bb5"
 }

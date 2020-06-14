@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import logo from "./logo.svg";
+import OpenAPI from "amplify-openapi-client";
+import awsconfig from "./aws-exports";
 import "./App.css";
 
 function App() {
+  useEffect(() => {
+    (async () => {
+      const api = new OpenAPI();
+      api.configure(awsconfig);
+      const client = await api.getClient({ name: "openapi", path: "/api" });
+      client.getPet(2);
+    })();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">

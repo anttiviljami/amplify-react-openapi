@@ -14,15 +14,15 @@
         },
     
     
-          "functionvanillacrudapiName": {
+          "functionopenapibackendName": {
             "Type": "String",
-            "Default": "functionvanillacrudapiName"
+            "Default": "functionopenapibackendName"
           },
         
           
-          "functionvanillacrudapiArn": {
+          "functionopenapibackendArn": {
             "Type": "String",
-            "Default": "functionvanillacrudapiArn"
+            "Default": "functionopenapibackendArn"
           }
         
           
@@ -41,13 +41,13 @@
     },
     "Resources": {
         
-        "PolicyAPIGWvanillacrudapiauth": {
+        "PolicyAPIGWopenapiauth": {
             "DependsOn": [
-              "vanillacrudapi"
+              "openapi"
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-              "PolicyName": "PolicyAPIGWvanillacrudapiauth",
+              "PolicyName": "PolicyAPIGWopenapiauth",
               "Roles": [
                 {"Ref": "authRoleName"}
               ],
@@ -77,7 +77,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -90,7 +90,7 @@
                               ]
                             },
                               "/POST",
-                            "/items/*"
+                            "/api/*"
                           ]
                         ]
                       },
@@ -108,7 +108,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -121,7 +121,7 @@
                               ]
                             },
                               "/POST",
-                            "/items"
+                            "/api"
                           ]
                         ]
                       }
@@ -143,7 +143,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -156,7 +156,7 @@
                               ]
                             },
                               "/GET",
-                            "/items/*"
+                            "/api/*"
                           ]
                         ]
                       },
@@ -174,7 +174,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -187,7 +187,7 @@
                               ]
                             },
                               "/GET",
-                            "/items"
+                            "/api"
                           ]
                         ]
                       }
@@ -209,7 +209,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -222,7 +222,7 @@
                               ]
                             },
                               "/PUT",
-                            "/items/*"
+                            "/api/*"
                           ]
                         ]
                       },
@@ -240,7 +240,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -253,7 +253,7 @@
                               ]
                             },
                               "/PUT",
-                            "/items"
+                            "/api"
                           ]
                         ]
                       }
@@ -275,7 +275,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -288,7 +288,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/items/*"
+                            "/api/*"
                           ]
                         ]
                       },
@@ -306,7 +306,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -319,7 +319,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/items"
+                            "/api"
                           ]
                         ]
                       }
@@ -341,7 +341,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -354,7 +354,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/items/*"
+                            "/api/*"
                           ]
                         ]
                       },
@@ -372,7 +372,7 @@
                             },
                             ":",
                             {
-                              "Ref": "vanillacrudapi"
+                              "Ref": "openapi"
                             },
                             "/",
                             {
@@ -385,7 +385,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/items"
+                            "/api"
                           ]
                         ]
                       }
@@ -405,16 +405,112 @@
         
         
         
-      "vanillacrudapi": {
+        "PolicyAPIGWopenapiunauth": {
+            "DependsOn": [
+              "openapi"
+            ],
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+              "PolicyName": "PolicyAPIGWopenapiunauth",
+              "Roles": [
+                 {"Ref": "unauthRoleName"}
+              ],
+              "PolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Action": [
+                      "execute-api:Invoke"
+                    ],
+                     "Resource": [
+                    
+                    
+                    
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "openapi"
+                            },
+                            "/",
+                            {
+                              "Fn::If": [
+                                "ShouldNotCreateEnvResources",
+                                "Prod", 
+                                {
+                                  "Ref": "env"
+                                } 
+                              ]
+                            },
+                              "/GET",
+                            "/api/*"
+                          ]
+                        ]
+                      },
+                                            {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "openapi"
+                            },
+                            "/",
+                            {
+                              "Fn::If": [
+                                "ShouldNotCreateEnvResources",
+                                "Prod",
+                                {
+                                  "Ref": "env"
+                                }
+                              ]
+                            },
+                              "/GET",
+                            "/api"
+                          ]
+                        ]
+                      }
+                    
+                    
+                    
+                    
+                    
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+        
+      "openapi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "vanillacrudapi",
+          "Name": "openapi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "vanillacrudapi"
+              "title": "openapi"
             },
             "host": {
                 "Fn::Join": [
@@ -450,7 +546,7 @@
             ],
             "paths": {
               
-              "/items": {
+              "/api": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -542,7 +638,7 @@
                             
                             {
                                 
-                                "Ref": "functionvanillacrudapiArn"
+                                "Ref": "functionopenapibackendArn"
                             },
                             
                             "/invocations"
@@ -555,7 +651,7 @@
                   }
                 }
               },
-              "/items/{proxy+}": {
+              "/api/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -647,7 +743,7 @@
                           
                           {
                             
-                            "Ref": "functionvanillacrudapiArn"
+                            "Ref": "functionopenapibackendArn"
                           },
                           
                           "/invocations"
@@ -704,12 +800,12 @@
                   
         
         
-        "functionvanillacrudapiPermissionvanillacrudapi": {
+        "functionopenapibackendPermissionopenapi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionvanillacrudapiName"
+                        "Ref":  "functionopenapibackendName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -728,7 +824,7 @@
                             },
                             ":",
                             {
-                                "Ref": "vanillacrudapi"
+                                "Ref": "openapi"
                             },
                             "/*/*/*"
                         ]
@@ -739,7 +835,7 @@
         
         
         
-      "DeploymentAPIGWvanillacrudapi": {
+      "DeploymentAPIGWopenapi2b1a6bb5": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -753,7 +849,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "vanillacrudapi"
+            "Ref": "openapi"
           }
         }
       }
@@ -761,15 +857,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "vanillacrudapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "openapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "vanillacrudapi"
+          "Value": "openapi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "vanillacrudapi"}
+          "Value": {"Ref": "openapi"}
         }
     }
   }
